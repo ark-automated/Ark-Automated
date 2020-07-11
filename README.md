@@ -4,6 +4,8 @@ WILL FOLLOW ALL ARK: Survival Evoled RULES, if Wilcard wants something removed i
 
 If you have any suggestions for new macros feel free to send them to me.
 
+Discord: https://discord.gg/9sszHzr
+
 Preview:
 
 ![Preview](https://raw.githubusercontent.com/ark-automated/Ark-Automated/master/Preview.gif)
