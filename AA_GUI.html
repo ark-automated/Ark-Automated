@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <!--
+    The IE Compatibility flag, while not always necessary, makes sure your page
+    will always load in IE11+ rendering mode instead of being limited to IE7
+    features and behaviors. While IE11 is still relatively old as a rendering
+    engine, it supports the most fundamental parts needed for modern webpages to
+    function correctly.
+
+    Neutron will do its best to enable IE11+ rendering mode regardless of this
+    tag, but in current releases pages will not render correctly when compiled
+    unless this tag is present. Because of that and other edge cases, any page
+    you write to load in Neutron should contain this meta tag.
+  -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <link href="bootstrap.min.css" rel="stylesheet">
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.bundle.js"></script>
+
+  <script>
+
+    function FWToggle() {
+      // Get the checkbox
+      var checkBox = document.getElementById("FWCheck");
+      // Get the output text
+      var text = document.getElementById("FWYes");
+
+      // If the checkbox is checked, display the output text
+      if (checkBox.checked == true) {
+        text.style.display = "block";
+      } else {
+        text.style.display = "none";
+      }
+    }
+
+    // Fix proper later
+    function CloseAlert() {
+      document.getElementById("MacroAssignedAlert").style.display = "none";
+    }
+
+    function ShowModal() {
+      $('#SetSettingsModal').modal();
+    }
+
+    function SettingsPage() {
+      $('#v-pills-tab a[href="#v-pills-Settings"]').tab('show')
+    }
+
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+
+  </script>
+
+
+
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      cursor: default
+    }
+
+    .title-btn {
+      padding: 0.35em 1.0em;
+      cursor: pointer;
+      vertical-align: bottom;
+      font-family: Webdings;
+      font-size: 11pt;
+    }
+
+    .title-btn:hover {
+      background: rgba(0, 0, 0, .2);
+    }
+
+    .title-btn-close:hover {
+      background: #dc3545;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 0.25em;
+      margin: 0.5em 0;
+    }
+  </style>
+
+
+</head>
+
+<body class="d-flex flex-column " oncontextmenu="return false;" onload="ahk.SetTitle(); ahk.CheckSettingsSet()">
+  <!-- oncontextmenu="return false;" blocks right mouse button -->
+
+  <!-- Title Bar -->
+  <header>
+    <div class="d-flex align-items-stretch bg-dark text-white">
+      <span class="flex-grow-1 px-2 py-1" id="titlebar123" onmousedown="neutron.DragTitleBar()">Ark Automated V0.3 by
+        Olivier#6863</span>
+      <span class="title-btn" onclick="neutron.Minimize()">0</span>
+      <span class="title-btn" onclick="neutron.Maximize()">1</span>
+      <span class="title-btn title-btn-close" onclick="neutron.Close()">r</span>
+    </div>
+  </header>
+  <!-- End Title Bar -->
+
+  <!-- Window Contents -->
+  <div class="flex-grow-1 d-flex overflow-auto ">
+
+    <!-- Sidebar -->
+    <div class="nav flex-column nav-pills bg-dark text-light" id="v-pills-tab" role="tablist"
+      aria-orientation="vertical">
+      <a class="nav-link text-light active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
+        aria-controls="v-pills-home" aria-selected="true">Home</a>
+      <a class="nav-link text-light" id="v-pills-Settings-tab" data-toggle="pill" href="#v-pills-Settings" role="tab"
+        aria-controls="v-pills-Settings" aria-selected="false">Settings</a>
+      <a class="nav-link text-light" id="v-pills-Help-tab" data-toggle="pill" href="#v-pills-Help" role="tab"
+        aria-controls="v-pills-Help" aria-selected="false">Help</a>
+      <a class="nav-link disabled" id="v-pills-PremiumFunctions-tab" data-toggle="pill" href="#v-pills-PremiumFunctions"
+        role="tab" aria-controls="v-pills-PremiumFunctions" aria-selected="false" aria-disabled="true"
+        tabindex="-1">Premium functions</a>
+        <footer class="footer mt-auto py-3 text-center">          
+          <a class="btn btn-secondary" onclick="ahk.OpenGithub()" role="button">Visit Github page</a>          
+        </footer>
+    </div>
+    <!-- End Sidebar -->
+
+    <!-- Page Content -->
+    <div class="flex-grow-1 overflow-auto">
+      <div class="tab-content container-fluid p-2" style="width: 98%" id="v-pills-tabContent">
+
+        <!-- v-pills-home -->
+        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+          <h1 class="text-center">Welcome to Ark Automated</h1>
+
+          <!-- Future alerts:
+           document.getElementById('alert-msg').innerHTML = message; // set message text
+           document.getElementById("myDIV").style.display = "none"; 
+          -->
+          <div class="alert alert-success alert-dismissible fade show" id="MacroAssignedAlert" role="alert"
+            style="display: none;">
+            <span id="MacroAssignedAlert1">text here</span>
+            <button type="button" class="close" onclick=CloseAlert()>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+
+
+          <!-- Set settings modal, triggers if settings are not changed -->
+          <div class="modal fade" id="SetSettingsModal" data-backdrop="static" tabindex="-1" role="dialog"
+            aria-labelledby="SetSettingsModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="SetSettingsModalTitle">Configure settings</h5>
+                </div>
+                <div class="modal-body">
+                  It seems like you have not configured (all) your settings yet. Please go to the settings tab and
+                  configure the mouse locations, press the info button if you need help with the locations.
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="SettingsPage()">Go to the
+                    settings tab</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <div class="dropdown">
+                <button class="btn btn-primary btn-block dropdown-toggle" type="button" id="dropdownMenu2"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Select macro
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                  <!--<button class="dropdown-item" type="button" data-toggle="collapse" data-parent="#parentdiv" data-target="#REPLACEME" aria-expanded="false"aria-controls="REPLACEME">REPLACEME</button>-->
+                  <button class="dropdown-item" type="button" data-toggle="collapse" data-parent="#parentdiv"
+                    data-target="#SimpleMacro" aria-expanded="false" aria-controls="SimpleMacro">SimpleMacro</button>
+                  <button class="dropdown-item" type="button" data-toggle="collapse" data-parent="#parentdiv"
+                    data-target="#BabyFeederSingle" aria-expanded="false"
+                    aria-controls="BabyFeederSingle">BabyFeederSingle</button>
+                  <button class="dropdown-item" type="button" data-toggle="collapse" data-parent="#parentdiv"
+                    data-target="#BabyFeederMass" aria-expanded="false"
+                    aria-controls="BabyFeederMass">BabyFeederMass</button>
+                  <div class="dropdown-divider"></div>
+                  <button class="dropdown-item" type="button" data-toggle="collapse" data-parent="#parentdiv"
+                    data-target="#EmptyCropplots" aria-expanded="false"
+                    aria-controls="EmptyCropplots">EmptyCropplots</button>
+                  <button class="dropdown-item" type="button" data-toggle="collapse" data-parent="#parentdiv"
+                    data-target="#EmptyDrop" aria-expanded="false" aria-controls="EmptyDrop">EmptyDrop</button>
+                  <button class="dropdown-item" type="button" data-toggle="collapse" data-parent="#parentdiv"
+                    data-target="#OpenBunnyEggs" aria-expanded="false"
+                    aria-controls="OpenBunnyEggs">OpenBunnyEggs</button>
+                  <div class="dropdown-divider"></div>
+                  <button class="dropdown-item" type="button" data-toggle="collapse" data-parent="#parentdiv"
+                    data-target="#FastDropDedicatedStorage" aria-expanded="false"
+                    aria-controls="FastDropDedicatedStorage">FastDropDedicatedStorage</button>
+                  <button class="dropdown-item" type="button" data-toggle="collapse" data-parent="#parentdiv"
+                    data-target="#SpamInventory" aria-expanded="false"
+                    aria-controls="SpamInventory">SpamInventory</button>
+                  <button class="dropdown-item" type="button" data-toggle="collapse" data-parent="#parentdiv"
+                    data-target="#BloodPackFarmer" aria-expanded="false"
+                    aria-controls="BloodPackFarmer">BloodPackFarmer</button>
+                  <div class="dropdown-divider"></div>
+                  <button class="dropdown-item" type="button" data-toggle="collapse" data-parent="#parentdiv"
+                    data-target="#BabyClaimingClosingMenu" aria-expanded="false"
+                    aria-controls="BabyClaimingClosingMenu">BabyClaimingClosingMenu</button>
+                  <button class="dropdown-item" type="button" data-toggle="collapse" data-parent="#parentdiv"
+                    data-target="#Dust2Elementcrafter" aria-expanded="false"
+                    aria-controls="Dust2Elementcrafter">Dust2Elementcrafter</button>
+                  <button class="dropdown-item" type="button" data-toggle="collapse" data-parent="#parentdiv"
+                    data-target="#FarmAssistant" aria-expanded="false"
+                    aria-controls="FarmAssistant">FarmAssistant</button>
+
+                </div>
+              </div>
+              <div class="mt-2">
+                <div class="card card-body">
+                  <div>Show macro status in ark</div>
+                  <div class="btn-group btn-group-toggle d-flex justify-content-center" data-toggle="buttons">
+                    <label class="btn btn-secondary" onclick="ahk.ShowMacroStatusArk(event)">
+                      <input type="radio" name="options" id="option1"> On
+                    </label>
+                    <label class="btn btn-secondary" onclick="ahk.ShowMacroStatusArkOff(event)">
+                      <input type="radio" name="options" id="option2" checked> Off
+                    </label>
+
+                  </div>
+
+                </div>
+              </div>
+
+
+            </div>
+
+            <div class="col-8">
+              <div id="parentdiv">
+
+                <div class="accordion-group">
+                  <div class="collapse indent" id="SimpleMacro" data-parent="#parentdiv">
+                    <div class="card card-body">
+                      <h1 class="text-center">SimpleMacro</h1>
+                      With this macro you can spam the key you set below with the interval you set in the second box.
+
+                      <form>
+                        <div class="form-group row">
+                          <label for="SMkey" class="col-sm-4 col-form-label">Key</label>
+                          <div class="col-sm-4">
+                            <select class="form-control" id="SMKey" required>
+                              <option>A</option>
+                              <option>B</option>
+                              <option>C</option>
+                              <option>D</option>
+                              <option>E</option>
+                              <option>F</option>
+                              <option>G</option>
+                              <option>H</option>
+                              <option>I</option>
+                              <option>J</option>
+                              <option>K</option>
+                              <option>L</option>
+                              <option>M</option>
+                              <option>N</option>
+                              <option>O</option>
+                              <option>P</option>
+                              <option>Q</option>
+                              <option>R</option>
+                              <option>S</option>
+                              <option>T</option>
+                              <option>U</option>
+                              <option>V</option>
+                              <option>W</option>
+                              <option>X</option>
+                              <option>Y</option>
+                              <option>Z</option>
+                              <option>LMB</option>
+                              <option>RMB</option>
+                              <option>0</option>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                              <option>6</option>
+                              <option>7</option>
+                              <option>8</option>
+                              <option>9</option>
+                            </select>
+
+
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="SMinterval" class="col-sm-4 col-form-label">Interval:</label>
+                          <div class="col-sm-6">
+                            <input type="number" class="form-control" id="SMinterval" aria-describedby="SMinthint"
+                              Value="250">
+                            <small id="SMinthint" class="form-text text-muted">In miliseconds, 1000ms=1second. Default
+                              250ms</small>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col-sm-10 text-center">
+                            <button type="submit" class="btn btn-primary" onclick="ahk.AssignMacro(event,1)">Assign
+                              macro to key</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+
+                  <!--BABYFEEDER SINGLE-->
+                  <div class="collapse indent" id="BabyFeederSingle" data-parent="#parentdiv">
+                    <div class="card card-body">
+                      <h1 class="text-center">Babyfeeder single</h1>
+                      With this macro you can feed one baby by having the babies inventory open and the food you want to
+                      give it accessable from the first slot in your inventory.(search for your food if implant is in
+                      slot 1)
+                      <div class="form-group row">
+                        <div class="col-sm-10 text-center">
+                          <button type="submit" class="btn btn-primary" onclick="ahk.AssignMacro(event,2)">Assign macro
+                            to key</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--BABY FEEDER MASS-->
+                  <div class="collapse indent" id="BabyFeederMass" data-parent="#parentdiv">
+                    <div class="card card-body">
+                      <h1 class="text-center">Babyfeeder mass</h1>
+                      With this macro you can raise many babies at once by continuesly healing them over and over again.
+                      You must start the macro when sitting on a snow owl. Configure the heal duration and time between
+                      heals below. Enter the heal time of the snow owl in the first box(including the time to spin up)
+                      and the time between heals in the second one(in miliseconds):
+                      <div class="form-group row">
+                        <label for="BFMfreeze" class="col-sm-7 col-form-label">Heal time:</label>
+                        <div class="col-sm-5">
+                          <input type="number" class="form-control" id="BFMfreeze" aria-describedby="BFMfreeze"
+                            Value="10000">
+
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="BFMinterval" class="col-sm-7 col-form-label">Time between heals:</label>
+                        <div class="col-sm-5">
+                          <input type="number" class="form-control" id="BFMinterval" aria-describedby="BFMinterval"
+                            Value="10000">
+                        </div>
+                        <small id="BFMinthint" class="form-text text-muted">In miliseconds, 1000ms=1second. Default
+                          10000ms(10sec) for both</small>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-10 text-center">
+                          <button type="submit" class="btn btn-primary" onclick="ahk.AssignMacro(event,3)">Assign macro
+                            to key</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--Empty Cropplots-->
+                  <div class="collapse indent" id="EmptyCropplots" data-parent="#parentdiv">
+                    <div class="card card-body">
+                      <h1 class="text-center">Empty cropplots</h1>
+                      Removes everything from the cropplot and then puts the fertilizer back.
+                      <div class="form-group row">
+                        <div class="col-sm-10 text-center">
+                          <button type="submit" class="btn btn-primary" onclick="ahk.AssignMacro(event,4)">Assign macro
+                            to key</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--Empty Drop-->
+                  <div class="collapse indent" id="EmptyDrop" data-parent="#parentdiv">
+                    <div class="card card-body">
+                      <h1 class="text-center">Empty drop</h1>
+                      Press the hotkey when the drop is open to quickly withdraw all from the remote inventory. Premium
+                      members can use the premium version which will spam open the drop+spam the virtual controller
+                      button to withdraw all. (will be added to normal one later, just need to figure out an easy way to
+                      emulate a controller)
+                      <div class="form-group row">
+                        <div class="col-sm-10 text-center">
+                          <button type="submit" class="btn btn-primary" onclick="ahk.AssignMacro(event,5)">Assign macro
+                            to key</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--OPEN BUNNY EGGS-->
+                  <div class="collapse indent" id="OpenBunnyEggs" data-parent="#parentdiv">
+                    <div class="card card-body">
+                      <h1 class="text-center">OpenBunnyEggs</h1>
+                      Start with bunny eggs in hotbar slot 1 and eggs in inventory. Make sure to aim a litle bit away
+                      from the ground and the egg so your character will place the egg without hitting the ground or the
+                      egg in case of lag(hitting egg or structure will make your character lose HP.) This only works
+                      when easter event is active.
+
+                      <div class="form-group row">
+                        <div class="col-sm-10 text-center">
+                          <button type="submit" class="btn btn-primary" data-toggle="tooltip"
+                            title="This macro will be available during the next easter event"
+                            onclick="ahk.AssignMacro(event,6)" disabled>Assign macro to key</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--Fastdrop dedicated storage-->
+                  <div class="collapse indent" id="FastDropDedicatedStorage" data-parent="#parentdiv">
+                    <div class="card card-body">
+                      <h1 class="text-center">Fastdrop DedicatedStorage</h1>
+                      Start with the Dedicated Storage Box inventory open. This macro will withdraw all from the
+                      Dedicated storage and then drop from inventory until it will take more from the dedicated storage
+                      box. This is a lot faster than manually pressing O while hovering over the remote inventory slot.
+                      Make sure to either filter for the item you want to drop in your inventory, or have an empty
+                      inventory.
+
+                      <div class="form-group row">
+                        <div class="col-sm-10 text-center">
+                          <button type="submit" class="btn btn-primary" onclick="ahk.AssignMacro(event,7)">Assign macro
+                            to key</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--Spam Inventory-->
+                  <div class="collapse indent" id="SpamInventory" data-parent="#parentdiv">
+                    <div class="card card-body">
+                      <h1 class="text-center">Spam inventory</h1>
+                      This macro will spam the key you set below across the first row of your or the remote inventory.
+                      Example usecases: Opening gacha crystals, dropping items instead of creating a bag(useful when
+                      emptying anky etc). Will keep running until you stop it. Remote inventory will be added soon
+                      <div class="form-group row">
+                        <label for="SIkey" class="col-sm-4 col-form-label">Key</label>
+                        <div class="col-sm-4">
+                          <select class="form-control" id="SIkey" required>
+                            <option>A</option>
+                            <option>B</option>
+                            <option>C</option>
+                            <option>D</option>
+                            <option>E</option>
+                            <option>F</option>
+                            <option>G</option>
+                            <option>H</option>
+                            <option>I</option>
+                            <option>J</option>
+                            <option>K</option>
+                            <option>L</option>
+                            <option>M</option>
+                            <option>N</option>
+                            <option>O</option>
+                            <option>P</option>
+                            <option>Q</option>
+                            <option>R</option>
+                            <option>S</option>
+                            <option>T</option>
+                            <option>U</option>
+                            <option>V</option>
+                            <option>W</option>
+                            <option>X</option>
+                            <option>Y</option>
+                            <option>Z</option>
+                            <option>LMB</option>
+                            <option>RMB</option>
+                            <option>0</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-10 text-center">
+                          <button type="submit" class="btn btn-primary" onclick="ahk.AssignMacro(event,8)">Assign macro
+                            to key</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--BloodPackFarmer-->
+                  <div class="collapse indent" id="BloodPackFarmer" data-parent="#parentdiv">
+                    <div class="card card-body">
+                      <h1 class="text-center">Bloodpack farmer</h1>
+                      This macro will automatically farm blood packs by suiciding and grabbing a new blood extraction
+                      syringe from the vault next to the beds(must spawn facing the vault) Configure the bed name and
+                      your HP below.PREMIUM ONLY FOR NOW (a similar version will be added soon thats easier to setup)
+
+                      <div class="form-group row">
+                        <div class="col-sm-10 text-center">
+                          <button type="submit" class="btn btn-primary" onclick="ahk.AssignMacro(event,9)">Assign macro
+                            to key</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--Baby claiming & closing name menu-->
+                  <div class="collapse indent" id="BabyClaimingClosingMenu" data-parent="#parentdiv">
+                    <div class="card card-body">
+                      <h1 class="text-center">Baby claiming & closing name menu</h1>
+                      This macro will automatically claim the dino you are facing and close the naming popup.
+                      NOT YET IMPLEMENTED DUE TO ARK HOTKEY CHANGES THAT MUST BE MADE
+
+                      <div class="form-group row">
+                        <div class="col-sm-10 text-center">
+                          <button type="submit" class="btn btn-primary" onclick="ahk.AssignMacro(event,10)">Assign macro
+                            to key</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--Dust2Elementcrafter-->
+                  <div class="collapse indent" id="Dust2Elementcrafter" data-parent="#parentdiv">
+                    <div class="card card-body">
+                      <h1 class="text-center">Dust2Elementcrafter</h1>
+                      With this macro you can turn dust from a dedicated storage box into element. `n`nHow to
+                      start:`nHave the Dedicated storage with dust open and put the Unstable Element engram in your
+                      FIRST hotbar(bar at the bottom) that has the button 1 assigned to it.
+                      TODO: Add focal chili consumption toggle
+                      <div class="form-group row">
+                        <div class="col-sm-10 text-center">
+                          <button type="submit" class="btn btn-primary" onclick="ahk.AssignMacro(event,11)">Assign macro
+                            to key</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--FarmAssistant-->
+                  <div class="collapse indent" id="FarmAssistant" data-parent="#parentdiv">
+                    <div class="card card-body">
+                      <h1 class="text-center">FarmAssistant</h1>
+                      With this macro you can farm resources and drop the things you do not want. Below you can set what
+                      to drop when the inventory is full(black icon displayed).
+                      Seperate the drop items with a , (comma). Currently clicks every 500ms(0.5seconds)
+                      <hr>
+                      <div class="form-group row">
+                        <label for="FAdropfilter" class="col-sm-3  pr-0 col-form-label">Drop filter:</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="FAdropfilter" value="Stone,Wood,Thatch"
+                            placeholder="Comma,seperated,items,to,drop">
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <div class="col-sm-10 text-center">
+                          <button type="submit" class="btn btn-primary" onclick="ahk.AssignMacro(event,12)">Assign macro
+                            to key</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="row">
+
+
+          </div>
+
+
+        </div>
+        <!-- End v-pills-home -->
+
+        <!-- v-pills-Settings -->
+        <div class="tab-pane fade" id="v-pills-Settings" role="tabpanel" aria-labelledby="v-pills-Settings-tab">
+          <h1 class="text-center">SETTINGS</h1>
+          <form>
+            <div class="row">
+              <div class="col">
+                <div class="card">
+                  <div class="card-header">
+                    Ark Automated settings
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                      Start/Pause hotkey:<span id="ahk_MacroKey">none</span>
+                      <button type="button" class="btn btn-primary btn-sm" onclick="ahk.SetMacroKey(event)">Change
+                        key</button>
+                      <small id="FWinthint" class="form-text text-muted">F2 is already assigned to reload the
+                        application so make sure to assign another key</small>
+                    </li>
+                    <li class="list-group-item">
+                      <div class="form-group">
+                        <div class="form-check">
+
+                          <input class="form-check-input" type="checkbox" id="FWCheck" onclick="FWToggle()">
+                          <label class="form-check-label" for="FWCheck">Consume food and water(disabled, will add again
+                            soon)</label>
+                          <div id="FWYes" style="display:none">
+                            Food/water interval: <input type="number" class="form-control" id="FWiValue"
+                              aria-describedby="FWinthint">
+                            <small id="FWinthint" class="form-text text-muted">In miliseconds, 1000ms=1second. Put food
+                              and
+                              water in slot 8&9 of your hotbar</small>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <button type="button" class="btn btn-primary btn-sm" onclick="ahk.SMP()">Show mouse X/Ypos
+                        location in ark</button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col  text-center">
+                <div class="card">
+                  <div class="card-header">
+                    Game settings and locations <a href="#" class="badge badge-info" onclick="ahk.OpenImg(1)">Info</a>
+                  </div>
+                  <ul class="list-group list-group-flush ">
+                    <!--start of X/Ypos -->
+                    <li class="list-group-item">
+                      <div class="form-group row p-0 m-0 justify-content-center">
+                        <label for="ahk_Xli" class="col-2  pl-0 pr-0 col-form-label" data-toggle="tooltip"
+                          title="Xli = Xpos Local inventory (first slot in your inventory)">Xli:</label>
+                        <div class="col-3 pl-1 pr-2">
+                          <input type="number" class="form-control pl-0 pr-0 text-center" id="ahk_Xli" placeholder="Xli"
+                            value="">
+                        </div>
+
+                        <label for="ahk_Yli" class="col-2 pl-0 pr-0 col-form-label" data-toggle="tooltip"
+                          title="Yli = Ypos Local inventory (first slot in your inventory)">Yli:</label>
+                        <div class="col-3 pl-0 pr-0">
+                          <input type="number" class="col-9 pl-0 pr-0 form-control text-center" id="ahk_Yli"
+                            placeholder="Yli" value="">
+                        </div>
+                      </div>
+                    </li>
+
+
+                    <li class="list-group-item">
+                      <div class="form-group row  p-0 m-0 justify-content-center">
+                        <label for="ahk_Xri" class="col-2 pl-0 pr-0 col-form-label" data-toggle="tooltip"
+                          title="Xri = Xpos remote inventory (first slot in remote inventory)">Xri:</label>
+                        <div class="col-3 pl-1 pr-2">
+                          <input type="number" class="form-control pl-0 pr-0 text-center" id="ahk_Xri" placeholder="Xri"
+                            value="">
+                        </div>
+
+                        <label for="ahk_Yri" class="col-2 pl-0 pr-0 col-form-label" data-toggle="tooltip"
+                          title="Yri = Ypos remote inventory (first slot in remote inventory)">Yri:</label>
+                        <div class="col-3 pl-0 pr-0 text-left">
+                          <input type="number" class="col-9 pl-0 pr-0 form-control text-center" id="ahk_Yri"
+                            placeholder="Yri" value="">
+                        </div>
+                      </div>
+                    </li>
+
+
+                    <li class="list-group-item">
+                      <div class="form-group row  p-0 m-0 justify-content-center">
+                        <label for="ahk_Xwa" class="col-2 pl-0 pr-0 col-form-label" data-toggle="tooltip"
+                          title="Xwa = Xpos withdraw all (transfer all button at remote inventory)">Xwa:</label>
+                        <div class="col-3 pl-1 pr-2">
+                          <input type="number" class="form-control pl-0 pr-0 text-center" id="ahk_Xwa" placeholder="Xwa"
+                            value="">
+                        </div>
+
+                        <label for="ahk_Ywa" class="col-2 pl-0 pr-0 col-form-label" data-toggle="tooltip"
+                          title="Ywa = Ypos withdraw all (transfer all button at remote inventory)">Ywa:</label>
+                        <div class="col-3 pl-0 pr-0 text-left">
+                          <input type="number" class="col-9 pl-0 pr-0 form-control text-center" id="ahk_Ywa"
+                            placeholder="Ywa" value="">
+                        </div>
+                      </div>
+                    </li>
+
+                    <li class="list-group-item">
+                      <div class="form-group row  p-0 m-0 justify-content-center">
+                        <label for="ahk_Xda" class="col-2 pl-0 pr-0 col-form-label" data-toggle="tooltip"
+                          title="Xda = Xpos deposit all (transfer all button local inventory)">Xda:</label>
+                        <div class="col-3 pl-1 pr-2">
+                          <input type="number" class="form-control pl-0 pr-0 text-center" id="ahk_Xda" placeholder="Xda"
+                            value="">
+                        </div>
+
+                        <label for="ahk_Yda" class="col-2 pl-0 pr-0 col-form-label" data-toggle="tooltip"
+                          title="Yda = Ypos deposit all (transfer all button local inventory)">Yda:</label>
+                        <div class="col-3 pl-0 pr-0 text-left">
+                          <input type="number" class="col-9 pl-0 pr-0 form-control text-center" id="ahk_Yda"
+                            placeholder="Yda" value="">
+                        </div>
+                      </div>
+                    </li>
+
+
+                    <li class="list-group-item">
+                      <div class="form-group row  p-0 m-0 justify-content-center">
+                        <label for="ahk_Xls" class="col-2 pl-0 pr-0 col-form-label" data-toggle="tooltip"
+                          title="Xls = Xpos local searchbar (set it where you can type after clicking)">Xls:</label>
+                        <div class="col-3 pl-1 pr-2">
+                          <input type="number" class="form-control pl-0 pr-0 text-center" id="ahk_Xls" placeholder="Xls"
+                            value="">
+                        </div>
+
+                        <label for="ahk_Yls" class="col-2 pl-0 pr-0 col-form-label" data-toggle="tooltip"
+                          title="Yls = Ypos local searchbar (set it where you can type after clicking)">Yls:</label>
+                        <div class="col-3 pl-0 pr-0 text-left">
+                          <input type="number" class="col-9 pl-0 pr-0 form-control text-center" id="ahk_Yls"
+                            placeholder="Yls" value="">
+                        </div>
+                      </div>
+                    </li>
+
+
+                    <li class="list-group-item">
+                      <div class="form-group row  p-0 m-0 justify-content-center">
+                        <label for="ahk_Xrs" class="col-2 pl-0 pr-0 col-form-label" data-toggle="tooltip"
+                          title="Xrs = Xpos remote searchbar (set it where you can type after clicking)">Xrs:</label>
+                        <div class="col-3 pl-1 pr-2">
+                          <input type="number" class="form-control pl-0 pr-0 text-center" id="ahk_Xrs" placeholder="Xrs"
+                            value="">
+                        </div>
+
+                        <label for="ahk_Yrs" class="col-2 pl-0 pr-0 col-form-label" data-toggle="tooltip"
+                          title="Yrs = Ypos remote searchbar (set it where you can type after clicking)">Yrs:</label>
+                        <div class="col-3 pl-0 pr-0 text-left">
+                          <input type="number" class="col-9 pl-0 pr-0 form-control text-center" id="ahk_Yrs"
+                            placeholder="Yrs" value="">
+                        </div>
+                      </div>
+                    </li>
+
+
+                    <li class="list-group-item">
+                      <div class="form-group row  p-0 m-0 justify-content-center">
+                        <label for="ahk_Xlf" class="col-2 pl-0 pr-0 col-form-label" data-toggle="tooltip"
+                          title="Xlf = Xpos local full (black icon when slotcapped bottomright corner)">Xlf:</label>
+                        <div class="col-3 pl-1 pr-2">
+                          <input type="number" class="form-control pl-0 pr-0 text-center" id="ahk_Xlf" placeholder="Xlf"
+                            value="">
+                        </div>
+
+                        <label for="ahk_Ylf" class="col-2 pl-0 pr-0 col-form-label" data-toggle="tooltip"
+                          title="Ylf = Ypos local full (black icon when slotcapped bottomright corner)">Ylf:</label>
+                        <div class="col-3 pl-0 pr-0 text-left">
+                          <input type="number" class="col-9 pl-0 pr-0 form-control text-center" id="ahk_Ylf"
+                            placeholder="Ylf" value="">
+                        </div>
+                      </div>
+                    </li>
+
+
+                    <li class="list-group-item">
+                      <div class="form-group row  p-0 m-0 justify-content-center">
+                        <label for="ahk_Xrf" class="col-2 pl-0 pr-0 col-form-label" data-toggle="tooltip"
+                          title="Xrf = Xpos remote full (black icon when slotcapped dino topright corner)">Xrf:</label>
+                        <div class="col-3 pl-1 pr-2">
+                          <input type="number" class="form-control pl-0 pr-0 text-center" id="ahk_Xrf" placeholder="Xrf"
+                            value="">
+                        </div>
+
+                        <label for="ahk_Yrf" class="col-2 pl-0 pr-0 col-form-label" data-toggle="tooltip"
+                          title="Yrf = Ypos remote full (black icon when slotcapped dino topright corner)">Yrf:</label>
+                        <div class="col-3 pl-0 pr-0 text-left">
+                          <input type="number" class="col-9 pl-0 pr-0 form-control text-center" id="ahk_Yrf"
+                            placeholder="Yrf" value="">
+                        </div>
+                      </div>
+                    </li>
+
+
+                    <li class="list-group-item">
+                      <div class="form-group row  p-0 m-0 justify-content-center">
+                        <label for="ahk_Xld" class="col-2 pl-0 pr-0 col-form-label" data-toggle="tooltip"
+                          title="Xld = Xpos local dropall (drop all button local inventory)">Xld:</label>
+                        <div class="col-3 pl-1 pr-2">
+                          <input type="number" class="form-control pl-0 pr-0 text-center" id="ahk_Xld" placeholder="Xld"
+                            value="">
+                        </div>
+
+                        <label for="ahk_Yld" class="col-2 pl-0 pr-0 col-form-label" data-toggle="tooltip"
+                          title="Yld = Ypos local dropall (drop all button local inventory)">Yld:</label>
+                        <div class="col-3 pl-0 pr-0 text-left">
+                          <input type="number" class="col-9 pl-0 pr-0 form-control text-center" id="ahk_Yld"
+                            placeholder="Yld" value="">
+                        </div>
+                      </div>
+                    </li>
+
+
+                    <li class="list-group-item">
+                      <div class="form-group row  p-0 m-0 justify-content-center">
+                        <label for="ahk_Xrd" class="col-2 pl-0 pr-0 col-form-label" data-toggle="tooltip"
+                          title="Xrd = Xpos remote dropall (drop all button remote inventory)">Xrd:</label>
+                        <div class="col-3 pl-1 pr-2">
+                          <input type="number" class="form-control pl-0 pr-0 text-center" id="ahk_Xrd" placeholder="Xrd"
+                            value="">
+                        </div>
+
+                        <label for="ahk_Yrd" class="col-2 pl-0 pr-0 col-form-label" data-toggle="tooltip"
+                          title="Yrd = Ypos remote dropall (drop all button remote inventory)">Yrd:</label>
+                        <div class="col-3 pl-0 pr-0 text-left">
+                          <input type="number" class="col-9 pl-0 pr-0 form-control text-center" id="ahk_Yrd"
+                            placeholder="Yrd" value="">
+                        </div>
+                      </div>
+                    </li>
+                    <!--end of X/Ypos -->
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <button type="submit" onclick="ahk.SaveSettings(event)" class="btn btn-block btn-primary mt-2">SAVE
+              SETTINGS</button>
+          </form>
+
+        </div>
+        <!-- End v-pills-Settings -->
+
+        <!-- v-pills-Help -->
+        <div class="tab-pane fade" id="v-pills-Help" role="tabpanel" aria-labelledby="v-pills-Help-tab">
+          <h1 class="text-center">Help</h1>
+          <div class="row">
+            <div class="col-sm">
+              <button type="button" onclick="ahk.JoinDiscord(1)" class="btn btn-primary">join Novus Discord
+                server</button>
+            </div>
+            <div class="col-sm">
+              <button type="button" onclick="ahk.JoinDiscord(2)" class="btn btn-primary">join Creators Discord
+                server</button>
+            </div>
+            <div class="col-sm">
+              <button type="button" onclick="ahk.JoinDiscord(3)" class="btn btn-primary">Contact Olivier#6863
+                directly</button>
+            </div>
+          </div>
+        </div>
+        <!-- End v-pills-Help -->
+
+        <!-- v-pills-PremiumFunctions -->
+        <div class="tab-pane fade" id="v-pills-PremiumFunctions" role="tabpanel"
+          aria-labelledby="v-pills-PremiumFunctions-tab">
+        </div>
+        <!-- End v-pills-PremiumFunctions -->
+
+      </div>
+    </div>
+
+    <!-- End Page Contents -->
+
+  </div>
+  <!-- End Window Contents -->
+
+</body>
+
+</html>
