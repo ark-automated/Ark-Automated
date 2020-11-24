@@ -6,7 +6,10 @@ If you have any suggestions for new macros feel free to send them to me.
 
 Discord: https://discord.gg/9sszHzr
 
-Preview:
+Download latest version here: https://github.com/ark-automated/Ark-Automated/releases/latest
+
+
+Preview(does not include latest macros added in V0.4):
 
 ![Preview](https://raw.githubusercontent.com/ark-automated/Ark-Automated/master/Preview.gif)
 
@@ -27,10 +30,12 @@ This started as a simple front end for people that wanted to use my AHK macro/sc
 |OpenBunnyEggs|Start with bunny eggs in hotbar slot 1 and eggs in inventory. Make sure to aim a litle bit away from the ground and the egg so your character will place the egg without hitting the ground or the egg in case of lag(hitting egg or structure will make your character lose HP.) This only works when easter event is active.|
 |Fastdrop DedicatedStorage|Start with the Dedicated Storage Box inventory open. This macro will withdraw all from the Dedicated storage and then drop from inventory until it will take more from the dedicated storage box. This is a lot faster than manually pressing O while hovering over the remote inventory slot. Make sure to either filter for the item you want to drop in your inventory, or have an empty inventory.|
 |Spam inventory|This macro will spam the key you set below across the first row of your or the remote inventory. Example usecases: Opening gacha crystals, dropping items instead of creating a bag(useful when emptying anky etc). Will keep running until you stop it. Remote inventory will be added soon|
-|Bloodpack farmer|This macro will automatically farm blood packs by suiciding and grabbing a new blood extraction syringe from the vault next to the beds(must spawn facing the vault) Configure the bed name and your HP below.PREMIUM ONLY FOR NOW (a similar version will be added soon thats easier to setup)|
+|Bloodpack farmer|The following 2 methods are available to create bloodpacks: Medbrews and tek pod. REQUIRES USING THE ENGLISH LANGUAGE IN GAME.<br> Medic brew method:<br>Start the script with your inventory open and with enough medical brews and a blood syringe in your inventory. Does not stop when out of brews so it will suicide if you do not stop it in time.<br>Tek pod method:<br>Start the script while laying in the tek pod. Make sure that your tek pod is placed with the head facing north and feet facing south so you can access the tek pod without moving.|
 |Baby claiming & closing name menu|This macro will automatically claim the dino you are facing and close the naming popup. NOT YET IMPLEMENTED DUE TO ARK HOTKEY CHANGES THAT MUST BE MADE
 |Dust2Elementcrafter|With this macro you can turn dust from a dedicated storage box into element. How to startHave the Dedicated storage with dust open and put the Unstable Element engram in your FIRST hotbar(bar at the bottom) that has the button 1 assigned to it. TODO: Add focal chili consumption toggle|
 |FarmAssistant|With this macro you can farm resources and drop the things you do not want. Below you can set what to drop when the inventory is full(black icon displayed). Seperate the drop items with a , (comma). Currently clicks every 500ms(0.5seconds)|
+|AutoWalker|Holds down shift+w until toggled off|
+|Berry2Seed|This macro will use the seed option on an Iguanodon to make seeds and drop the seeds from the Iguanodon inventory in a bag on the ground. Requires you to have berries in your inv for restacking each time.|
 
 
 
@@ -38,8 +43,6 @@ This started as a simple front end for people that wanted to use my AHK macro/sc
 
     TODO:
         Functions/macros:
-            -Autowalker/keydown with shift support
-            -Public bloodpack
             -Public Chat translator (requires global font and right now only works with a locally running application for OCR, gotta find public API+better OCR solution for translation on other screensizes)
             -Make the premium fishing script public that works on many resolutions but requires some manual setup for now
             -Mass feeder that feeds babies individually like the premium one currently does, depends on OCR functionality and what is and isn't okay with Wildcard

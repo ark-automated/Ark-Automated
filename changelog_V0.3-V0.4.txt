@@ -1,0 +1,34 @@
+Fixes:
+-Auto food/water consumption working again
+-LMB/RMB now properly working in simple macro
+-Some other stuff along the way I forgot to write down
+
+
+AutoWalker:
+Activate to have the macro hold shift+W until the hotkey is pressed again
+
+
+Bloodpack farmer:
+The following methods now work:
+-Tek sleeping pod method
+-Medic brew method
+
+Farm assistant:
+-Added delay between opening inventory and searching for first item to drop(should fix the drop all bug people have been experiencing on slower computers)
+-Added button to drop the junk even if remote inventory is not slotcapped
+
+Seed creator:
+-You can now create seeds quickly with an Iguanodon, place 150 stacks of berries in the Iguanodon inventory and have berry stacks in your inventory(starting at first inv slot), works as follows:
+    1. Start with inventory of Iguanodon open
+    2. Press your macro key
+    3. The script will drop all the seeds in the Iguanodon inventory
+    4. The script will transfer over a stack of berries
+    5. The script will close the inventory
+    6. The script will open the radial menu and select the seed option
+    7. The script will open the Iguanodon inventory and repeat step 3-7 until stopped.
+
+Radial menu automation:
+Beta testers are now testing it, will be made public once it has been tested on enough resolutions. 
+
+Auto in-game chat translation:
+Looking for a free API that can be used to translate the text. I currently use Google Cloud but it requires valid payment information and I don't want to/have the time to help people with setting it up individually
