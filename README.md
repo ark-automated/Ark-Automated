@@ -1,4 +1,4 @@
-# Ark-Automated
+## Ark-Automated
 AHK tool to automate things with macros for the game ARK: Survival Evolved. 
 WILL FOLLOW ALL ARK: Survival Evoled RULES, if Wilcard wants something removed it will be removed.
 
@@ -65,3 +65,8 @@ This started as a simple front end for people that wanted to use my AHK macro/sc
 
 
 Uses https://github.com/G33kDude/Neutron.ahk for the GUI
+
+## Donating
+[![Support via PayPal](https://cdn.rawgit.com/twolfson/paypal-github-button/1.0.0/dist/button.svg)](https://paypal.me/ArkAutomated)<br>
+Please note that donations will not give you anything extra except for maybe a special rank in Discord. The money is just used to work on better/new functions for AA and maybe some fuel for my body.
+
