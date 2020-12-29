@@ -59,7 +59,7 @@ Process, Priority, , A
 
 #Include Neutron.ahk
 
-curAAVersion := 0.4
+curAAVersion := 0.41
 
 whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
 whr.Open("GET", "https://raw.githubusercontent.com/ark-automated/Ark-Automated/master/version.txt", true)
@@ -71,7 +71,7 @@ latAAVersion := Round(whr.ResponseText,3)
 if (curAAVersion < latAAVersion){
     MsgBox,4,Ark Automated update available!, Update available! Check the Discord or Github for latest info. `nYour version %curAAVersion% `nLatest version: %latAAVersion% `nWould you like to visit the Github page?
     IfMsgBox Yes
-    run https://github.com/ark-automated/Ark-Automated
+    run https://github.com/ark-automated/Ark-Automated/releases/latest
     ExitApp
     IfMsgBox No
     ExitApp
@@ -236,6 +236,7 @@ AssignMacro(neutron, event, macro)
     {
         global BPFMethod := neutron.doc.getElementById("BPFMethod").options[neutron.doc.getElementById("BPFMethod").selectedIndex].value
         global BPFHP := neutron.doc.getElementById("BPFHP").value
+        global BPFHPCST := neutron.doc.getElementById("BPFCST").value ; custom sleep timer 
         IniRead, SSHK, ArkAutomated.ini, SSHK, StartStopHK
         if (BPFMethod = "MedicalBrew")
         {
@@ -542,11 +543,12 @@ bpfb1: ; High quality copypasting from old personal scripts
     sleep 150
     send, Medical Brew 
     sleep 250
+    MouseMove, XLI, YLI
+    sleep 50
+    Click
     loop, % BrewsToDrink
     {
         MouseMove, XLI, YLI
-        sleep 150
-        Click
         sleep 50
         send, e
         sleep 200
@@ -574,8 +576,8 @@ return
 
 bpfp1: ; High quality copypasting from old personal scripts
     SyringeUsageAmount := Floor(Round(BPFHP / 25))-1 ; Store the amount of times you can use the Blood Extraction Syringe
-    TimeInPod := Round(BPFHP * 120) ; Regen 1hp every 120miliseconds
-
+    TimeInPod := Round(BPFHP * 200) ; Regen 1hp every 200miliseconds to be safe(it is 4 to 12hp per second)
+    CustomSleepInPod := BPFCST
     sleep 200
     send, e
     sleep 200
@@ -587,8 +589,9 @@ bpfp1: ; High quality copypasting from old personal scripts
     Click
     sleep 200
     Send {Ctrl down}
-    sleep 10
+    sleep 20
     Send a
+    sleep 20
     Send {Ctrl up}
     sleep 100
     Send, Blood Extraction Syringe
@@ -612,6 +615,7 @@ bpfp1: ; High quality copypasting from old personal scripts
     send, {e up}
     sleep 500
     sleep % TimeInPod
+    sleep % CustomSleepInPod
 return
 
 ; Dust2Elementcrafter
@@ -1090,6 +1094,16 @@ OpenGithub(neutron)
 {
     run https://github.com/ark-automated/Ark-Automated
 }
+
+InstructionVid(neutron)
+{
+    run https://www.youtube.com/watch?v=x_ChsVDgJXU
+}
+Donate(neutron)
+{
+    run https://paypal.me/ArkAutomated
+}
+
 
 JoinDiscord(neutron, discordoption)
 {

@@ -128,9 +128,8 @@
       <a class="nav-link disabled" id="v-pills-PremiumFunctions-tab" data-toggle="pill" href="#v-pills-PremiumFunctions"
         role="tab" aria-controls="v-pills-PremiumFunctions" aria-selected="false" aria-disabled="true"
         tabindex="-1">Premium functions</a>
-        <footer class="footer mt-auto py-3 text-center">
-          <a class="btn btn-primary btn-block" onclick="ahk.Donate()" role="button">Donate</a>
-          <a class="btn btn-secondary btn-block" onclick="ahk.OpenGithub()" role="button">Visit Github page</a>          
+        <footer class="footer mt-auto py-3 text-center">          
+          <a class="btn btn-secondary" onclick="ahk.OpenGithub()" role="button">Visit Github page</a>          
         </footer>
     </div>
     <!-- End Sidebar -->
@@ -167,7 +166,7 @@
                 </div>
                 <div class="modal-body">
                   It seems like you have not configured (all) your settings yet. Please go to the settings tab and
-                  configure the mouse locations, press the info button if you need help with the locations or the video button if you need a video tutorial.
+                  configure the mouse locations, press the info button if you need help with the locations.
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="SettingsPage()">Go to the
@@ -528,7 +527,7 @@
                       Start the script with your inventory open and with enough medical brews and a blood syringe in your inventory. Does not stop when out of brews so it will suicide if you do not stop it in time.
                     </br>
                       Tek pod method:
-                      Start the script while laying in the tek pod. Make sure that your tek pod is placed with the head facing north and feet facing south so you can access the tek pod without moving. The tek pod heals between 4 and 12HP per second, to be safe it is set to 5HP regen per second. If you want you can configure an additional wait timer below.
+                      Start the script while laying in the tek pod. Make sure that your tek pod is placed with the head facing north and feet facing south so you can access the tek pod without moving.
                       
                       <div class="form-group row">
                         <label for="BPFMethod" class="col-sm-6 col-form-label">Method:</label>
@@ -544,12 +543,6 @@
                         <div class="col-sm-6">
                           <input type="number" class="form-control" id="BPFHP" value="100">
                         </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="BPFCST" class="col-sm-6  pr-0 col-form-label">Custom sleep timer:</label>
-                        <div class="col-sm-6">
-                          <input type="number" class="form-control" id="BPFCST" value="0">
-                          </div>
                       </div>
                       <hr>
                       <div class="form-group row">
@@ -675,7 +668,7 @@
               <div class="col">
                 <div class="card">
                   <div class="card-header">
-                    Ark Automated settings <a href="#" class="badge badge-info" onclick="ahk.InstructionVid()">Video</a>
+                    Ark Automated settings
                   </div>
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item">
