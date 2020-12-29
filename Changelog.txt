@@ -46,5 +46,5 @@ Extended some timers to make it less likely to bug out on slower machines
     Will now asume 5HP regen per second to be safe(regen is random between 4 and 12HP per second) which can be extended even more by adding a custom pause time.
 
 +Added a donation button
-
++Added an instruction video
 +Started with more customization options in the backend, those will be visible later.
