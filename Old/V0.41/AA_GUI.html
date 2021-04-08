@@ -128,10 +128,10 @@
       <a class="nav-link disabled" id="v-pills-PremiumFunctions-tab" data-toggle="pill" href="#v-pills-PremiumFunctions"
         role="tab" aria-controls="v-pills-PremiumFunctions" aria-selected="false" aria-disabled="true"
         tabindex="-1">Premium functions</a>
-      <footer class="footer mt-auto py-3 text-center">
-        <a class="btn btn-primary btn-block" onclick="ahk.Donate()" role="button">Donate</a>
-        <a class="btn btn-secondary btn-block" onclick="ahk.OpenGithub()" role="button">Visit Github page</a>
-      </footer>
+        <footer class="footer mt-auto py-3 text-center">
+          <a class="btn btn-primary btn-block" onclick="ahk.Donate()" role="button">Donate</a>
+          <a class="btn btn-secondary btn-block" onclick="ahk.OpenGithub()" role="button">Visit Github page</a>          
+        </footer>
     </div>
     <!-- End Sidebar -->
 
@@ -167,8 +167,7 @@
                 </div>
                 <div class="modal-body">
                   It seems like you have not configured (all) your settings yet. Please go to the settings tab and
-                  configure the mouse locations, press the info button if you need help with the locations or the video
-                  button if you need a video tutorial.
+                  configure the mouse locations, press the info button if you need help with the locations or the video button if you need a video tutorial.
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="SettingsPage()">Go to the
@@ -226,10 +225,12 @@
                     aria-controls="FarmAssistant">FarmAssistant</button>
                   <div class="dropdown-divider"></div>
                   <button class="dropdown-item" type="button" data-toggle="collapse" data-parent="#parentdiv"
-                    data-target="#AutoWalker" aria-expanded="false" aria-controls="AutoWalker">AutoWalker</button>
+                    data-target="#AutoWalker" aria-expanded="false"
+                    aria-controls="AutoWalker">AutoWalker</button>
                   <button class="dropdown-item" type="button" data-toggle="collapse" data-parent="#parentdiv"
-                    data-target="#Berry2Seed" aria-expanded="false" aria-controls="Berry2Seed">Berry2Seed</button>
-
+                    data-target="#Berry2Seed" aria-expanded="false"
+                    aria-controls="Berry2Seed">Berry2Seed</button>
+                  
 
                 </div>
               </div>
@@ -244,14 +245,14 @@
                       <input type="radio" name="options" id="option2" checked> Off
                     </label>
                   </div>
-                  <div>Consume food and water</div>
-                  <div class="btn-group btn-group-toggle d-flex justify-content-center" data-toggle="buttons">
-                    <label class="btn btn-secondary" onclick="ahk.ConsumeFWOn(event)">
-                      <input type="radio" name="options" id="option1"> On
-                    </label>
-                    <label class="btn btn-secondary" onclick="ahk.ConsumeFWOff(event)">
-                      <input type="radio" name="options" id="option2" checked> Off
-                    </label>
+                    <div>Consume food and water</div>
+                    <div class="btn-group btn-group-toggle d-flex justify-content-center" data-toggle="buttons">
+                      <label class="btn btn-secondary" onclick="ahk.ConsumeFWOn(event)">
+                        <input type="radio" name="options" id="option1"> On
+                      </label>
+                      <label class="btn btn-secondary" onclick="ahk.ConsumeFWOff(event)">
+                        <input type="radio" name="options" id="option2" checked> Off
+                      </label>
 
                   </div>
 
@@ -275,32 +276,32 @@
                           <label for="SMkey" class="col-sm-4 col-form-label">Key</label>
                           <div class="col-sm-4">
                             <select class="form-control" id="SMKey" required>
-                              <option>a</option>
-                              <option>b</option>
-                              <option>c</option>
-                              <option>d</option>
-                              <option>e</option>
-                              <option>f</option>
-                              <option>g</option>
-                              <option>h</option>
-                              <option>i</option>
-                              <option>j</option>
-                              <option>k</option>
-                              <option>l</option>
-                              <option>m</option>
-                              <option>n</option>
-                              <option>o</option>
-                              <option>p</option>
-                              <option>q</option>
-                              <option>r</option>
-                              <option>s</option>
-                              <option>t</option>
-                              <option>u</option>
-                              <option>v</option>
-                              <option>w</option>
-                              <option>x</option>
-                              <option>y</option>
-                              <option>z</option>
+                              <option>A</option>
+                              <option>B</option>
+                              <option>C</option>
+                              <option>D</option>
+                              <option>E</option>
+                              <option>F</option>
+                              <option>G</option>
+                              <option>H</option>
+                              <option>I</option>
+                              <option>J</option>
+                              <option>K</option>
+                              <option>L</option>
+                              <option>M</option>
+                              <option>N</option>
+                              <option>O</option>
+                              <option>P</option>
+                              <option>Q</option>
+                              <option>R</option>
+                              <option>S</option>
+                              <option>T</option>
+                              <option>U</option>
+                              <option>V</option>
+                              <option>W</option>
+                              <option>X</option>
+                              <option>Y</option>
+                              <option>Z</option>
                               <option>{LButton}</option>
                               <option>{RButton}</option>
                               <option>0</option>
@@ -422,13 +423,16 @@
                   <div class="collapse indent" id="OpenBunnyEggs" data-parent="#parentdiv">
                     <div class="card card-body">
                       <h1 class="text-center">OpenBunnyEggs</h1>
-                      Start this macro with the egg already selected(ready to place on the ground). The script will
-                      place and open eggs until stopped.
+                      Start with bunny eggs in hotbar slot 1 and eggs in inventory. Make sure to aim a litle bit away
+                      from the ground and the egg so your character will place the egg without hitting the ground or the
+                      egg in case of lag(hitting egg or structure will make your character lose HP.) This only works
+                      when easter event is active.
 
                       <div class="form-group row">
                         <div class="col-sm-10 text-center">
-                          <button type="submit" class="btn btn-primary" onclick="ahk.AssignMacro(event,6)">Assign macro
-                            to key</button>
+                          <button type="submit" class="btn btn-primary" data-toggle="tooltip"
+                            title="This macro will be available during the next easter event"
+                            onclick="ahk.AssignMacro(event,6)" disabled>Assign macro to key</button>
                         </div>
                       </div>
                     </div>
@@ -464,32 +468,32 @@
                         <label for="SIkey" class="col-sm-4 col-form-label">Key</label>
                         <div class="col-sm-4">
                           <select class="form-control" id="SIkey" required>
-                            <option>a</option>
-                            <option>b</option>
-                            <option>c</option>
-                            <option>d</option>
-                            <option>e</option>
-                            <option>f</option>
-                            <option>g</option>
-                            <option>h</option>
-                            <option>i</option>
-                            <option>j</option>
-                            <option>k</option>
-                            <option>l</option>
-                            <option>m</option>
-                            <option>n</option>
-                            <option>o</option>
-                            <option>p</option>
-                            <option>q</option>
-                            <option>r</option>
-                            <option>s</option>
-                            <option>t</option>
-                            <option>u</option>
-                            <option>v</option>
-                            <option>w</option>
-                            <option>x</option>
-                            <option>y</option>
-                            <option>z</option>
+                            <option>A</option>
+                            <option>B</option>
+                            <option>C</option>
+                            <option>D</option>
+                            <option>E</option>
+                            <option>F</option>
+                            <option>G</option>
+                            <option>H</option>
+                            <option>I</option>
+                            <option>J</option>
+                            <option>K</option>
+                            <option>L</option>
+                            <option>M</option>
+                            <option>N</option>
+                            <option>O</option>
+                            <option>P</option>
+                            <option>Q</option>
+                            <option>R</option>
+                            <option>S</option>
+                            <option>T</option>
+                            <option>U</option>
+                            <option>V</option>
+                            <option>W</option>
+                            <option>X</option>
+                            <option>Y</option>
+                            <option>Z</option>
                             <option>{LButton}</option>
                             <option>{RButton}</option>
                             <option>0</option>
@@ -518,26 +522,21 @@
                   <div class="collapse indent" id="BloodPackFarmer" data-parent="#parentdiv">
                     <div class="card card-body">
                       <h1 class="text-center">Bloodpack farmer</h1>
-                      The following 2 methods are available to create bloodpacks: Medbrews and tek pod. REQUIRES USING
-                      THE ENGLISH LANGUAGE IN GAME.
+                      The following 2 methods are available to create bloodpacks: Medbrews and tek pod. REQUIRES USING THE ENGLISH LANGUAGE IN GAME. 
                       <hr>
                       Medic brew method:
-                      Start the script with your inventory open and with enough medical brews and a blood syringe in
-                      your inventory. Does not stop when out of brews so it will suicide if you do not stop it in time.
-                      </br>
+                      Start the script with your inventory open and with enough medical brews and a blood syringe in your inventory. Does not stop when out of brews so it will suicide if you do not stop it in time.
+                    </br>
                       Tek pod method:
-                      Start the script while laying in the tek pod. Make sure that your tek pod is placed with the head
-                      facing north and feet facing south so you can access the tek pod without moving. The tek pod heals
-                      between 4 and 12HP per second, to be safe it is set to 5HP regen per second. If you want you can
-                      configure an additional wait timer below.
-
+                      Start the script while laying in the tek pod. Make sure that your tek pod is placed with the head facing north and feet facing south so you can access the tek pod without moving. The tek pod heals between 4 and 12HP per second, to be safe it is set to 5HP regen per second. If you want you can configure an additional wait timer below.
+                      
                       <div class="form-group row">
                         <label for="BPFMethod" class="col-sm-6 col-form-label">Method:</label>
                         <div class="col-sm-6">
                           <select class="form-control" id="BPFMethod" required>
                             <option>MedicalBrew</option>
                             <option>TekPod</option>
-                          </select>
+                            </select>
                         </div>
                       </div>
                       <div class="form-group row">
@@ -550,7 +549,7 @@
                         <label for="BPFCST" class="col-sm-6  pr-0 col-form-label">Custom sleep timer:</label>
                         <div class="col-sm-6">
                           <input type="number" class="form-control" id="BPFCST" value="0">
-                        </div>
+                          </div>
                       </div>
                       <hr>
                       <div class="form-group row">
@@ -585,7 +584,7 @@
                       With this macro you can turn dust from a dedicated storage box into element. `n`nHow to
                       start:`nHave the Dedicated storage with dust open and put the Unstable Element engram in your
                       FIRST hotbar(bar at the bottom) that has the button 1 assigned to it.
-                      Put the Focal Chili in your 2nd hotbar slot
+                      TODO: Add focal chili consumption toggle
                       <div class="form-group row">
                         <div class="col-sm-10 text-center">
                           <button type="submit" class="btn btn-primary" onclick="ahk.AssignMacro(event,11)">Assign macro
@@ -600,8 +599,7 @@
                     <div class="card card-body">
                       <h1 class="text-center">FarmAssistant</h1>
                       With this macro you can farm resources and drop the things you do not want. Below you can set what
-                      to drop when the inventory is full(black icon displayed), or when the hotkey you set below is
-                      pressed.
+                      to drop when the inventory is full(black icon displayed), or when the hotkey you set below is pressed.
                       Seperate the drop items with a , (comma). Currently clicks every 500ms(0.5seconds)
                       <hr>
                       <div class="form-group row">
@@ -615,8 +613,7 @@
                         Manual drop key:<span id="ahk_FAMDHK">none</span>
                         <button type="button" class="btn btn-primary btn-sm" onclick="ahk.SetFAMDHK(event)">Change
                           key</button>
-                        <small id="FWinthint" class="form-text text-muted">Make sure to not assign F2(reload
-                          application) or the key assigned to start/stop macros</small>
+                        <small id="FWinthint" class="form-text text-muted">Make sure to not assign F2(reload application) or the key assigned to start/stop macros</small>
                       </li>
 
                       <div class="form-group row">
@@ -646,9 +643,7 @@
                   <div class="collapse indent" id="Berry2Seed" data-parent="#parentdiv">
                     <div class="card card-body">
                       <h1 class="text-center">Berry2seed</h1>
-                      This macro will convert berries to seeds in an Iguanodon. Start with the Iguanodon inventory open
-                      and filled with up to 150 stacks of berry in its inventory. Put extra stacks of berries in your
-                      own inventory to keep making the stacks. The seeds will be dropped in a bag under the Iguanodon.
+                      This macro will convert berries to seeds in an Iguanodon. Start with the Iguanodon inventory open and filled with up to 150 stacks of berry in its inventory. Put extra stacks of berries in your own inventory to keep making the stacks. The seeds will be dropped in a bag under the Iguanodon.
                       <div class="form-group row">
                         <div class="col-sm-10 text-center">
                           <button type="submit" class="btn btn-primary" onclick="ahk.AssignMacro(event,14)">Assign macro
@@ -931,7 +926,7 @@
               <button type="button" onclick="ahk.JoinDiscord(2)" class="btn btn-primary">Contact Olivier#6863
                 directly</button>
             </div>
-
+            
           </div>
         </div>
         <!-- End v-pills-Help -->

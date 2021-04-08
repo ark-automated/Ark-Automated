@@ -110,18 +110,8 @@ class NeutronWindow
 	, WM_NCHITTEST := 0x84
 	, WM_NCLBUTTONDOWN := 0xA1
 	, WM_KEYDOWN := 0x100
-	, WM_KEYUP := 0x101
-	, WM_SYSKEYDOWN := 0x104
-	, WM_SYSKEYUP := 0x105
 	, WM_MOUSEMOVE := 0x200
 	, WM_LBUTTONDOWN := 0x201
-	
-	; Virtual-Key Codes
-	, VK_TAB := 0x09
-	, VK_SHIFT := 0x10
-	, VK_CONTROL := 0x11
-	, VK_MENU := 0x12
-	, VK_F5 := 0x74
 	
 	; Non-client hit test values (WM_NCHITTEST)
 	, HT_VALUES := [[13, 12, 14], [10, 1, 11], [16, 15, 17]]
@@ -141,38 +131,12 @@ class NeutronWindow
 	
 	; --- Instance Variables ---
 	
-	LISTENERS := [this.WM_DESTROY, this.WM_SIZE, this.WM_NCCALCSIZE
-	, this.WM_KEYDOWN, this.WM_KEYUP, this.WM_SYSKEYDOWN, this.WM_SYSKEYUP
-	, this.WM_LBUTTONDOWN]
-	
 	; Maximum pixel inset for sizing handles to appear
 	border_size := 6
 	
 	; The window size
 	w := 800
 	h := 600
-	
-	; Modifier keys as seen by neutron
-	MODIFIER_BITMAP := {this.VK_SHIFT: 1<<0, this.VK_CONTROL: 1<<1
-	, this.VK_MENU: 1<<2}
-	modifiers := 0
-	
-	; Shortcuts to not pass on to the web control
-	disabled_shortcuts :=
-	( Join ; ahk
-	{
-		0: {
-			this.VK_F5: true
-		},
-		this.MODIFIER_BITMAP[this.VK_CONTROL]: {
-			GetKeyVK("F"): true,
-			GetKeyVK("L"): true,
-			GetKeyVK("N"): true,
-			GetKeyVK("O"): true,
-			GetKeyVK("P"): true
-		}
-	}
-	)
 	
 	
 	; --- Properties ---
@@ -201,6 +165,8 @@ class NeutronWindow
 	__New(html:="", css:="", js:="", title:="Neutron")
 	{
 		static wb
+		this.LISTENERS := [this.WM_DESTROY, this.WM_SIZE, this.WM_NCCALCSIZE
+		, this.WM_KEYDOWN, this.WM_LBUTTONDOWN]
 		
 		; Create necessary circular references
 		this.bound := {}
@@ -330,13 +296,11 @@ class NeutronWindow
 		DetectHiddenWindows, On
 		ControlGet, hWnd, hWnd,, Internet Explorer_Server1, % "ahk_id" this.hWnd
 		this.hIES := hWnd
-		ControlGet, hWnd, hWnd,, Shell DocObject View1, % "ahk_id" this.hWnd
-		this.hSDOV := hWnd
 		DetectHiddenWindows, %dhw%
 		
 		this.pWndProc := RegisterCallback(this._WindowProc, "", 4, &this)
 		this.pWndProcOld := DllCall("SetWindowLong" (A_PtrSize == 8 ? "Ptr" : "")
-		, "Ptr", this.hIES     ; HWND     hWnd
+		, "Ptr", hWnd          ; HWND     hWnd
 		, "Int", -4            ; int      nIndex (GWLP_WNDPROC)
 		, "Ptr", this.pWndProc ; LONG_PTR dwNewLong
 		, "Ptr") ; LONG_PTR
@@ -404,58 +368,31 @@ class NeutronWindow
 				
 				for i, message in this.LISTENERS
 					OnMessage(message, this.bound._OnMessage, 0)
-				ComObjConnect(this.wb)
 				this.bound := []
 			}
 		}
-		else if (hWnd == this.hIES || hWnd == this.hSDOV)
+		else if (hWnd == this.hIES)
 		{
 			; Handle messages for the rendered Internet Explorer_Server
 			
-			pressed := (Msg == this.WM_KEYDOWN || Msg == this.WM_SYSKEYDOWN)
-			released := (Msg == this.WM_KEYUP || Msg == this.WM_SYSKEYUP)
-			
-			if (pressed || released)
+			if (Msg == this.WM_KEYDOWN)
 			{
-				; Track modifier states
-				if (bit := this.MODIFIER_BITMAP[wParam])
-					this.modifiers := (this.modifiers & ~bit) | (pressed * bit)
+				; Accelerator handling code from AutoHotkey Installer
 				
-				; Block disabled key combinations
-				if (this.disabled_shortcuts[this.modifiers, wParam])
-					return 0
-				
-				
-				; When you press tab with the last tabbable item in the
-				; document already selected, focus will be taken from the IES
-				; control and moved to the SDOV control. The accelerator code
-				; from the AutoHotkey installer uses a conditional loop in an
-				; attempt to work around this behavior, but as implemented it
-				; did not work correctly on my system. Instead, listen for the
-				; tab up event on the SDOV and swap it for a tab down before
-				; translating it. This should prevent the user from tabbing to
-				; the SDOV in most cases, though there may still be some way to
-				; tab to it that I am not aware of. A more elegant solution may
-				; be to subclass the SDOV like was done for the IES, then
-				; forward the WM_SETFOCUS message back to the IES control.
-				; However, given the relative complexity of subclassing and the
-				; fact that this message substution approach appears to work
-				; just as well, we will use the message substitution. Consider
-				; implementing the other approach if it turns out that the
-				; undesirable behavior continues to manifest under some
-				; circumstances.
-				Msg := hWnd == this.hSDOV ? this.WM_KEYDOWN : Msg
-				
-				; Modified accelerator handling code from AutoHotkey Installer
+				if (Chr(wParam) ~= "[A-Z]" || wParam = 0x74) ; Disable Ctrl+O/L/F/N and F5.
+					return
 				Gui +OwnDialogs ; For threadless callbacks which interrupt this.
 				pipa := ComObjQuery(this.wb, "{00000117-0000-0000-C000-000000000046}")
 				VarSetCapacity(kMsg, 48), NumPut(A_GuiY, NumPut(A_GuiX
 				, NumPut(A_EventInfo, NumPut(lParam, NumPut(wParam
 				, NumPut(Msg, NumPut(hWnd, kMsg)))), "uint"), "int"), "int")
-				r := DllCall(NumGet(NumGet(1*pipa)+5*A_PtrSize), "ptr", pipa, "ptr", &kMsg)
+				Loop 2
+					r := DllCall(NumGet(NumGet(1*pipa)+5*A_PtrSize), "ptr", pipa, "ptr", &kMsg)
+				; Loop to work around an odd tabbing issue (it's as if there
+				; is a non-existent element at the end of the tab order).
+				until wParam != 9 || this.wb.document.activeElement != ""
 				ObjRelease(pipa)
-				
-				if (r == 0) ; S_OK: the message was translated to an accelerator.
+				if r = 0 ; S_OK: the message was translated to an accelerator.
 					return 0
 				return
 			}
@@ -493,7 +430,6 @@ class NeutronWindow
 		}
 		
 		; Otherwise (since above didn't return), pass all unhandled events to the original WindowProc.
-		Critical, Off
 		return DllCall("CallWindowProc"
 		, "Ptr", this.pWndProcOld ; WNDPROC lpPrevWndFunc
 		, "Ptr", hWnd             ; HWND    hWnd

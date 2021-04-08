@@ -48,3 +48,11 @@ Extended some timers to make it less likely to bug out on slower machines
 +Added a donation button
 +Added an instruction video
 +Started with more customization options in the backend, those will be visible later.
+
+
+V0.42
++Enabled bunny egg macro
+
+Fixed: simplemacro will now only send the key, not shift+key and some other small things
+
+Coming soon: V0.5 with lots of new features :)
