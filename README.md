@@ -1,6 +1,6 @@
 ## Ark-Automated
 AHK tool to automate things with macros for the game ARK: Survival Evolved. 
-WILL FOLLOW ALL ARK: Survival Evoled RULES, if Wilcard wants something removed it will be removed.
+WILL FOLLOW ALL ARK: Survival Evolved RULES, if Wilcard wants something removed it will be removed.
 
 If you have any suggestions for new macros feel free to send them to me.
 
