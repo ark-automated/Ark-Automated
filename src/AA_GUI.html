@@ -1,8 +1,8 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 
 <head>
-
+  <meta charset="utf-8">
   <!--
     The IE Compatibility flag, while not always necessary, makes sure your page
     will always load in IE11+ rendering mode instead of being limited to IE7
@@ -16,85 +16,10 @@
     you write to load in Neutron should contain this meta tag.
   -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-  <link href="bootstrap.min.css" rel="stylesheet">
-  <script src="jquery.min.js"></script>
-  <script src="bootstrap.bundle.js"></script>
-
-  <script>
-
-    function FWToggle() {
-      // Get the checkbox
-      var checkBox = document.getElementById("FWCheck");
-      // Get the output text
-      var text = document.getElementById("FWYes");
-
-      // If the checkbox is checked, display the output text
-      if (checkBox.checked == true) {
-        text.style.display = "block";
-      } else {
-        text.style.display = "none";
-      }
-    }
-
-    // Fix proper later
-    function CloseAlert() {
-      document.getElementById("MacroAssignedAlert").style.display = "none";
-    }
-
-    function ShowModal() {
-      $('#SetSettingsModal').modal();
-    }
-
-    function SettingsPage() {
-      $('#v-pills-tab a[href="#v-pills-Settings"]').tab('show')
-    }
-
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-    })
-
-  </script>
-
-
-
-  <style>
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      -khtml-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      cursor: default
-    }
-
-    .title-btn {
-      padding: 0.35em 1.0em;
-      cursor: pointer;
-      vertical-align: bottom;
-      font-family: Webdings;
-      font-size: 11pt;
-    }
-
-    .title-btn:hover {
-      background: rgba(0, 0, 0, .2);
-    }
-
-    .title-btn-close:hover {
-      background: #dc3545;
-    }
-
-    img {
-      max-width: 100%;
-      border-radius: 0.25em;
-      margin: 0.5em 0;
-    }
-  </style>
-
+  <meta name="description" content="Ark Automated by
+    Olivier#6863">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ark Automated</title>
 
 </head>
 
@@ -125,9 +50,8 @@
         aria-controls="v-pills-Settings" aria-selected="false">Settings</a>
       <a class="nav-link text-light" id="v-pills-Help-tab" data-toggle="pill" href="#v-pills-Help" role="tab"
         aria-controls="v-pills-Help" aria-selected="false">Help</a>
-      <a class="nav-link disabled" id="v-pills-PremiumFunctions-tab" data-toggle="pill" href="#v-pills-PremiumFunctions"
-        role="tab" aria-controls="v-pills-PremiumFunctions" aria-selected="false" aria-disabled="true"
-        tabindex="-1">Premium functions</a>
+      <a class="nav-link" id="v-pills-PremiumFunctions-tab" data-toggle="pill" href="#v-pills-PremiumFunctions"
+        role="tab" aria-controls="v-pills-PremiumFunctions" aria-selected="false" tabindex="-1">Premium functions</a>
       <footer class="footer mt-auto py-3 text-center">
         <a class="btn btn-primary btn-block" onclick="ahk.Donate()" role="button">Donate</a>
         <a class="btn btn-secondary btn-block" onclick="ahk.OpenGithub()" role="button">Visit Github page</a>
@@ -167,7 +91,8 @@
                 </div>
                 <div class="modal-body">
                   It seems like you have not configured (all) your settings yet. Please go to the settings tab and
-                  configure the mouse locations, press the info button if you need help with the locations or the video
+                  configure the mouse locations, press the inf
+                  o button if you need help with the locations or the video
                   button if you need a video tutorial.
                 </div>
                 <div class="modal-footer">
@@ -915,7 +840,6 @@
             <button type="submit" onclick="ahk.SaveSettings(event)" class="btn btn-block btn-primary mt-2">SAVE
               SETTINGS</button>
           </form>
-
         </div>
         <!-- End v-pills-Settings -->
 
@@ -939,6 +863,15 @@
         <!-- v-pills-PremiumFunctions -->
         <div class="tab-pane fade" id="v-pills-PremiumFunctions" role="tabpanel"
           aria-labelledby="v-pills-PremiumFunctions-tab">
+          <h1 class="text-center">Premium Features</h1>
+
+          <div class="row">
+            <div class="col-xs col-sm col-md col-lg">
+              <h4>COMING SOON </h4>
+            </div>
+
+          </div>
+
         </div>
         <!-- End v-pills-PremiumFunctions -->
 
@@ -949,7 +882,20 @@
 
   </div>
   <!-- End Window Contents -->
-
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker
+          .register("service-worker.js")
+          .then((registration) => {
+            console.log("Service Worker registered: ", registration);
+          })
+          .catch((registrationError) => {
+            console.error("Service Worker registration failed: ", registrationError);
+          });
+      });
+    }
+  </script>
 </body>
 
 </html>

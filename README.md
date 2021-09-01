@@ -66,6 +66,15 @@ This started as a simple front end for people that wanted to use my AHK macro/sc
 
 Uses https://github.com/G33kDude/Neutron.ahk for the GUI
 
+
+## Installing from Source
+Too install from source make sure you have NPM/Yarn installed.
+
+run
+```
+yarn install
+yarn build
+```
 ## Donating
 [![Support via PayPal](https://cdn.rawgit.com/twolfson/paypal-github-button/1.0.0/dist/button.svg)](https://paypal.me/ArkAutomated)<br>
 Please note that donations will not give you anything extra except for maybe a special rank in Discord. The money is just used to work on better/new functions for AA and maybe some fuel for my body.
