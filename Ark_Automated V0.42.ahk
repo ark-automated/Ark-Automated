@@ -48,6 +48,16 @@
 
 */
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ADMIN CHECK
+If not A_IsAdmin
+{
+  DllCall("shell32\ShellExecuteA", uint, 0, str, "RunAs", str, A_AhkPath, str, """" . A_ScriptFullPath . """", str, A_WorkingDir, int, 1)
+  ExitApp
+}
+
+
 #NoEnv
 SetBatchLines, -1
 #SingleInstance Force
@@ -56,6 +66,7 @@ ListLines Off ; Can enable for debugging purposes
 SetWorkingDir %A_ScriptDir%
 SetTitleMatchMode, 1
 Process, Priority, , A
+SendMode Input
 
 #Include Neutron.ahk
 
@@ -95,11 +106,9 @@ return
 
 ; FileInstall all your dependencies, but put the FileInstall lines somewhere
 ; they won't ever be reached. 
-FileInstall, AA_GUI.html, AA_GUI.html
+FileInstall, dist/index.html, %A_Desktop%\dist\index.html
 FileInstall, Neutron.ahk, Neutron.ahk
-FileInstall, bootstrap.min.css, bootstrap.min.css
-FileInstall, jquery.min.js, jquery.min.js
-FileInstall, bootstrap.bundle.js, bootstrap.bundle.js
+FileInstall, dist/main.js, %A_Desktop%\dist\main.js
 
 NeutronClose:
 ExitApp
