@@ -1,7 +1,8 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 
 <head>
+  <meta charset="utf-8">
   <!--
     The IE Compatibility flag, while not always necessary, makes sure your page
     will always load in IE11+ rendering mode instead of being limited to IE7
@@ -15,6 +16,11 @@
     you write to load in Neutron should contain this meta tag.
   -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Ark Automated by
+    Olivier#6863">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ark Automated</title>
+
 </head>
 
 <body class="d-flex flex-column " oncontextmenu="return false;" onload="ahk.SetTitle(); ahk.CheckSettingsSet()">
@@ -45,8 +51,7 @@
       <a class="nav-link text-light" id="v-pills-Help-tab" data-toggle="pill" href="#v-pills-Help" role="tab"
         aria-controls="v-pills-Help" aria-selected="false">Help</a>
       <a class="nav-link" id="v-pills-PremiumFunctions-tab" data-toggle="pill" href="#v-pills-PremiumFunctions"
-        role="tab" aria-controls="v-pills-PremiumFunctions" aria-selected="false"
-        tabindex="-1">Premium functions</a>
+        role="tab" aria-controls="v-pills-PremiumFunctions" aria-selected="false" tabindex="-1">Premium functions</a>
       <footer class="footer mt-auto py-3 text-center">
         <a class="btn btn-primary btn-block" onclick="ahk.Donate()" role="button">Donate</a>
         <a class="btn btn-secondary btn-block" onclick="ahk.OpenGithub()" role="button">Visit Github page</a>
@@ -835,7 +840,6 @@
             <button type="submit" onclick="ahk.SaveSettings(event)" class="btn btn-block btn-primary mt-2">SAVE
               SETTINGS</button>
           </form>
-
         </div>
         <!-- End v-pills-Settings -->
 
@@ -859,6 +863,15 @@
         <!-- v-pills-PremiumFunctions -->
         <div class="tab-pane fade" id="v-pills-PremiumFunctions" role="tabpanel"
           aria-labelledby="v-pills-PremiumFunctions-tab">
+          <h1 class="text-center">Premium Features</h1>
+
+          <div class="row">
+            <div class="col-xs col-sm col-md col-lg">
+              <h4>COMING SOON </h4>
+            </div>
+
+          </div>
+
         </div>
         <!-- End v-pills-PremiumFunctions -->
 
@@ -871,18 +884,18 @@
   <!-- End Window Contents -->
   <script>
     if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-            navigator.serviceWorker
-                .register("service-worker.js")
-                .then((registration) => {
-                    console.log("Service Worker registered: ", registration);
-                })
-                .catch((registrationError) => {
-                    console.error("Service Worker registration failed: ", registrationError);
-                });
-        });
+      window.addEventListener("load", () => {
+        navigator.serviceWorker
+          .register("service-worker.js")
+          .then((registration) => {
+            console.log("Service Worker registered: ", registration);
+          })
+          .catch((registrationError) => {
+            console.error("Service Worker registration failed: ", registrationError);
+          });
+      });
     }
-</script>
+  </script>
 </body>
 
 </html>
