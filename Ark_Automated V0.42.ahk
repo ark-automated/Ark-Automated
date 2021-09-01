@@ -82,7 +82,7 @@ if !FileExist("ArkAutomated.ini") ; If ArkAutomated.ini does not exist it will c
 
 ; Create a new NeutronWindow and navigate to our HTML page
 neutron := new NeutronWindow()
-neutron.Load("AA_GUI.html")
+neutron.Load("dist/index.html")
 
 ; Use the Gui method to set a custom label prefix for GUI events. This code is
 ; equivalent to the line `Gui, name:+LabelNeutron` for a normal GUI.
